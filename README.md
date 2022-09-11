@@ -1,7 +1,5 @@
 # My notes
 
-test
-
 ###### My cheat sheet notes.
 
 ## Python pip
