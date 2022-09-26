@@ -55,6 +55,8 @@ LinPeas and Winpeas located ate my `Privesc_scripts` repository.
 
 [Windows Local Privilege Escalation - HackTricks](https://book.hacktricks.xyz/windows/windows-local-privilege-escalation)
 
+[Notes TCM Course](https://github.com/TCM-Course-Resources/Windows-Privilege-Escalation-Resources)
+
 ### Linux PrivEsc Cheatsheet
 
 [Linux Privilege Escalation - HackTricks](https://book.hacktricks.xyz/linux-unix/privilege-escalation)
