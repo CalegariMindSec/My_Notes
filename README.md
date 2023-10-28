@@ -30,7 +30,7 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
 
 ## Windows PrivEsc Scripts
 
-[`My Privesc Scripts Folder`](https://github.com/CalegariMindSec/Privesc_scripts/tree/main/Windows_Privesc)
+[`My Privesc Scripts - Windows`](https://github.com/CalegariMindSec/Privesc_scripts/tree/main/Windows_Privesc)
 
 [PowerSploit/Privesc at master · PowerShellMafia/PowerSploit · GitHub](https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc)
 
@@ -42,31 +42,33 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
 
 [GhostPack · GitHub](https://github.com/GhostPack)
 
-
-
 ### Windows PrivEsc Kernel Exploits
 
 [Windows Exploits](https://github.com/abatchy17/WindowsExploits)
 
 [GitHub - SecWiki/windows-kernel-exploits: windows-kernel-exploits Windows平台提权漏洞集合](https://github.com/SecWiki/windows-kernel-exploits)
 
-[exploitdb-bin-sploits/bin-sploits at master · offensive-security/exploitdb-bin-sploits · GitHub](https://github.com/offensive-security/exploitdb-bin-sploits/tree/master/bin-sploits)
+[Exploitdb-bin-sploits/bin-sploits at master · offensive-security/exploitdb-bin-sploits · GitHub](https://github.com/offensive-security/exploitdb-bin-sploits/tree/master/bin-sploits)
 
 ### Windows PrivEsc CheatSheet
-
-[OSCP_Vini2.ctb (sejalivre.org)](https://sejalivre.org/OSCP/index.html#)
 
 [Windows Local Privilege Escalation - HackTricks](https://book.hacktricks.xyz/windows/windows-local-privilege-escalation)
 
 [Notes TCM Course](https://github.com/TCM-Course-Resources/Windows-Privilege-Escalation-Resources)
 
+[PayloadAllTheThings - Windows Privilege Escalation](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Windows%20-%20Privilege%20Escalation.md)
+
 ### Linux PrivEsc Cheatsheet
 
-[Linux Privilege Escalation - HackTricks](https://book.hacktricks.xyz/linux-unix/privilege-escalation)
+[`My Privesc Scripts - Linux`](https://github.com/CalegariMindSec/Privesc_scripts/tree/main/Linux_Privesc)
 
-### OSCP Guide
+[Linux Privilege Escalation - HackTricks Privilege Escalation](https://book.hacktricks.xyz/linux-unix/privilege-escalation)
 
-[GitHub - rkhal101/Hack-the-Box-OSCP-Preparation: Hack-the-Box-OSCP-Preparation](https://github.com/rkhal101/Hack-the-Box-OSCP-Preparation)
+[PayloadAllTheThings - Linux ](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Linux%20-%20Privilege%20Escalation.md)
+
+### Windows Binaries
+
+[LOLBAS Project](https://lolbas-project.github.io/)
 
 ### File Download - Windows
 
