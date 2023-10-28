@@ -1,12 +1,14 @@
 # My notes
 
-###### My cheat sheet notes.
+###### My General Notes.
+
+  This notes contains link of tools, link of cheatsheets, Commands etc.
 
 ## Python pip
 
-1. Python2 -m pip YOUR_COMMAND
+1. `Python2 -m pip YOUR_COMMAND` OR `pip2 YOUR_COMMAND`
 
-2. Python3 -m pip YOUR_COMMAND
+2. `Python3 -m pip YOUR_COMMAND` OR `pip3 YOUR_COMMAND`
 
 ## Python3 server
 
@@ -18,15 +20,17 @@
 
 ## Msfvenom CheatSheet
 
-[MSFVenom - CheatSheet - HackTricks](https://book.hacktricks.xyz/shells/shells/msfvenom)
+[MSFVenom - CheatSheet - HackTricks](https://book.hacktricks.xyz/generic-methodologies-and-resources/shells/msfvenom)
 
 ## Peas Family
 
-LinPeas and Winpeas located ate my `Privesc_scripts` repository.
+LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/CalegariMindSec/Privesc_scripts) repository.
 
 [GitHub - carlospolop/PEASS-ng: PEASS - Privilege Escalation Awesome Scripts SUITE (with colors)](https://github.com/carlospolop/PEASS-ng)
 
 ## Windows PrivEsc Scripts
+
+[`My Privesc Scripts Folder`](https://github.com/CalegariMindSec/Privesc_scripts/tree/main/Windows_Privesc)
 
 [PowerSploit/Privesc at master · PowerShellMafia/PowerSploit · GitHub](https://github.com/PowerShellMafia/PowerSploit/tree/master/Privesc)
 
@@ -38,7 +42,7 @@ LinPeas and Winpeas located ate my `Privesc_scripts` repository.
 
 [GhostPack · GitHub](https://github.com/GhostPack)
 
-[My Privesc Scripts](https://github.com/CalegariMindSec/Privesc_scripts)
+
 
 ### Windows PrivEsc Kernel Exploits
 
