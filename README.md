@@ -70,6 +70,16 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
 
 [LOLBAS Project](https://lolbas-project.github.io/)
 
+### Unix Binaries
+
+[GTFOBins](https://gtfobins.github.io/)
+
+### Listerners (Better Alternatives to Netcat)
+
+[Netpwn](https://github.com/anthares101/netpwn)
+
+[Pwncat](https://github.com/calebstewart/pwncat)
+
 ### File Download - Windows
 
 1. ```powershell
@@ -125,10 +135,6 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
 2. ```python
    python3 -c 'import pty; pty.spawn("/bin/sh")'
    ```
-
-### Shell Spawning
-
-[Spawning a TTY Shell (netsec.ws)](https://netsec.ws/?p=337)
 
 ### Active Directory Exploitation
 
