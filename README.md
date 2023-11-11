@@ -146,3 +146,10 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
 
 [Reverse Shell Generator](https://www.revshells.com/)
 [Reverse shell cheat sheet PentestMonkey](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
+
+### Find Passwords Linux
+
+  * 1)
+      ```
+        grep --color=auto -rnw '/' -ie "Password" --color=always 2>/dev/null
+      ```
