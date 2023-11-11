@@ -153,3 +153,15 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
       ```
       grep --color=auto -rnw '/' -ie "Password" --color=always 2>/dev/null
       ```
+
+### Download Scripts From SBM Netlogon and Sysvol
+
+  *
+    ```
+    smbmap -u <user> -p '<password>' -d <domain> -H <dc-ip> -R SYSVOL --depth 10 -A "^.*\.(vbs|ps1|bat|vbe)$"
+    ```
+
+  *
+    ```
+    smbmap -u <user> -p '<password>' -d <domain> -H <dc-ip> -R NETLOGON --depth 10 -A "^.*\.(vbs|ps1|bat|vbe)$"
+    ```
