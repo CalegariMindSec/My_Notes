@@ -226,3 +226,34 @@ API Token Attacks:
   ```
 
 ## Exploiting API Authorization
+
+  * Broken Object Level Authorization (BOLA)
+  * Broken Function Level Authorization (BFLA)
+
+Where BOLA is all about accessing resources that do not belong to you, BFLA is all about performing unauthorized actions. BFLA vulnerabilities are common for requests that perform actions of other users. These requests could be lateral actions or escalated actions. Lateral actions are requests that perform actions of users that are the same role or privilege level. Escalated actions are requests that perform actions that are of an escalated role like an administrator.
+
+## Improper Assets Management
+
+Change version of api endpoint.
+
+Example Request:
+
+  ```
+POST /api/accounts
+
+{
+"ver":1.0,
+"user":"hapihacker"
+}
+```
+
+Example Modified Request:
+
+```
+POST /api/accounts
+
+{
+"ver":2.0,
+"user":"hapihacker"
+}
+```
