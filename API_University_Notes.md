@@ -272,3 +272,5 @@ Parameters vuln - Example:
 ```
 
 ## Server-Side Request Forgery
+
+Server-Side Request Forgery (SSRF) is a vulnerability that takes place when an application retrieves remote resources without validating user input. An attacker can supply their own input, in the form of a URL, to control the remote resources that are retrieved by the targeted server. When you have control over what resources a server requests then you can gain access to sensitive data or worse completely compromise a vulnerable host. SSRF is number 10 on the 2021 OWASP Top 10 list and is a growing threat to APIs.
