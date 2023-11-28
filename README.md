@@ -165,3 +165,15 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
     ```
     smbmap -u <user> -p '<password>' -d <domain> -H <dc-ip> -R NETLOGON --depth 10 -A "^.*\.(vbs|ps1|bat|vbe)$"
     ```
+
+### FFUF Brute Force And Credential Stuffing
+
+  * Brute Force - Example:
+    ```
+    ffuf -request req.txt -w xato-net-10-million-passwords-10000.txt -request-proto http -fc 401
+    ```
+
+  * Credential Stuffing - Example:
+  ```
+  ffuf -request req.txt -w user:FUZZ1 -w pass:FUZZ2 -request-proto http -mode pitchfork -x http://127.0.0.1:8080 -fc 401
+  ```
