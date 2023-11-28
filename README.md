@@ -174,6 +174,6 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
     ```
 
   * Credential Stuffing - Example:
-  ```
-  ffuf -request req.txt -w user:FUZZ1 -w pass:FUZZ2 -request-proto http -mode pitchfork -x http://127.0.0.1:8080 -fc 401
-  ```
+    ```
+    ffuf -request req.txt -w user:FUZZ1 -w pass:FUZZ2 -request-proto http -mode pitchfork -x http://127.0.0.1:8080 -fc 401
+    ```
