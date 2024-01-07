@@ -180,12 +180,12 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
 
 ### Kali Linux Windows Features
 
-  * 1) [pwsh](https://www.kali.org/tools/powershell/) - Powershell Terminal
-  * 2) [wine](https://www.winehq.org/) - Run Run Windows applications on Linux, BSD, Solaris
+  * 1 ) [pwsh](https://www.kali.org/tools/powershell/) - Powershell Terminal
+  * 2 ) [wine](https://www.winehq.org/) - Run Run Windows applications on Linux, BSD, Solaris
     * 2.1) [Install](https://techviewleo.com/how-to-install-wine-on-kali-linux/)
-  * 3) [mono](https://www.mono-project.com/) - Mono is a software platform designed to allow developers to easily create cross platform applications
+  * 3 ) [mono](https://www.mono-project.com/) - Mono is a software platform designed to allow developers to easily create cross platform applications
     * 3.1) [Install](https://linuxize.com/post/how-to-install-mono-on-ubuntu-20-04/)
-  * 4) [ILspycmd](https://github.com/icsharpcode/ILSpy/tree/master/ICSharpCode.ILSpyCmd)
+  * 4 ) [ILspycmd](https://github.com/icsharpcode/ILSpy/tree/master/ICSharpCode.ILSpyCmd)
     * 4.1) [Install](https://www.nuget.org/packages/ilspycmd/)
     * 4.2) [Usage Example - HTB Support Machine Writeup]()
     * 4.3) **Command example:** ilspycmd FILE.exe -p -o /Path/To/File/
