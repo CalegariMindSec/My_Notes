@@ -189,3 +189,10 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
     * 4.1) [Install](https://www.nuget.org/packages/ilspycmd/)
     * 4.2) [Usage Example - HTB Support Machine Writeup]()
     * 4.3) **Command example:** ilspycmd FILE.exe -p -o /Path/To/File/
+
+### Powershell B64 convert file
+
+```powershell
+[convert]::ToBase64String((Get-Content -path "FILE" -Encoding byte))
+```
+
