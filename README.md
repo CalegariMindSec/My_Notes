@@ -196,3 +196,9 @@ LinPeas and Winpeas located ate my [`Privesc_scripts`](https://github.com/Calega
 [convert]::ToBase64String((Get-Content -path "FILE" -Encoding byte))
 ```
 
+### Password Wordlists
+
+Usar [QbitTorrent](https://www.qbittorrent.org/download) para download.
+
+	* https://github.com/berzerk0/Probable-Wordlists/blob/master/Downloads.md
+	* https://github.com/ohmybahgosh/RockYou2021.txt
