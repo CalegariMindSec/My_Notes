@@ -202,3 +202,24 @@ Usar [QbitTorrent](https://www.qbittorrent.org/download) para download.
 
 	* https://github.com/berzerk0/Probable-Wordlists/blob/master/Downloads.md
 	* https://github.com/ohmybahgosh/RockYou2021.txt
+
+### Username Wordlist Generation - John Rule
+
+Reference: https://dzmitry-savitski.github.io/2020/04/generate-a-user-name-list-for-brute-force-from-first-and-last-name
+
+```bash
+┌──(kali㉿kali)-[~/Desktop/]
+└─$ cat teste.txt    
+Thiago Teste
+Allow Rubens
+Ana Taylor                                                                                                                                                                                                                                
+┌──(kali㉿kali)-[~/Desktop/]
+└─$ john --wordlist=teste.txt --rules=Login-Generator --stdout > usernames.txt
+Using default input encoding: UTF-8
+Press 'q' or Ctrl-C to abort, almost any other key for status
+237p 0:00:00:00 100.00% (2024-02-14 12:37) 7900p/s TAYLOR-A                                                                                                                                                                                           
+┌──(kali㉿kali)-[~/Desktop/]
+└─$ wc -l usernames.txt                                                                            
+237 usernames.txt
+```
+
