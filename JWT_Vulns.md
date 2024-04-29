@@ -14,6 +14,7 @@
 
 - [jwt.io](https://jwt.io/)
 - [jwt_tool - Github](https://github.com/ticarpi/jwt_tool)
+- [JSON Web Tokens - Burp Suite Extension](https://portswigger.net/bappstore/f923cbf91698420890354c1d8958fee6)
 
 ## Resume
 
