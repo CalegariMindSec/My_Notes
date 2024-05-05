@@ -91,7 +91,7 @@ The impact of JWT attacks is usually severe. If an attacker is able to  create t
 
 **Resolution:**
 
-1. Login at **wiener** account, collect and analyse the JWT Tokent at **jwt.io** or **jwt_tool**.
+1. Login at **wiener** account, collect and analyse the JWT Token at **jwt.io** or **jwt_tool**.
 
 ```bash
 └─$ python3 jwt_tool.py eyJraWQiOiI3YTQ4NjQ2YS0yMTgwLTRkOGUtYTA1YS00MjJhOTlkOWFjNzEiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDQyNTc4Nywic3ViIjoid2llbmVyIn0.cGCHsE9vb_hFeQQ47dlwUqBZd6jlzjoyGMKxFVGvKLh3WKG42j0JiPCDJU5be97aMdzFXcw2FfWwQdBMWbeSVBouqy4Hep5FeI9K5XfyA-tOpSYkbLZlyslRsnyOmb1VokHOrhJpHNdWSUK94fvQMuyucw832oJmi1Z7voKkjHCPpyIywHy8MCOYz0xzB7BNteZviV776Seo_OA5hJT4y2r-Iur7hkyHXhVlU4ORWx62hQb546aIdzRuQDbh1zbzvOmiVlySuwZgNfT_56Uh2i-JTo18AjadGrTD0ZIIG2aGnjAD0ZZkaK6LvDaI6lR_NyJteJJQR54ffC17KoibJg   
