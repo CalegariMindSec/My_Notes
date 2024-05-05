@@ -16,6 +16,7 @@
 - [JWT Debugger](https://token.dev/)
 - [jwt_tool - Github](https://github.com/ticarpi/jwt_tool)
 - [JSON Web Tokens - Burp Suite Extension](https://portswigger.net/bappstore/f923cbf91698420890354c1d8958fee6)
+- [JWT Editor](https://portswigger.net/bappstore/26aaa5ded2f74beea19e2ed8345a93dd)
 
 ## Resume
 
@@ -470,3 +471,125 @@ jwttool_4552467d0649097eae708c85922f4c7a - Tampered token - HMAC Signing:
 3. Use Burp Repeater to access "admin" page.
 
 <img align="center" src="screenshots/jwt_vulns/weak_signing_key/tamp_jwt.png">
+
+### JWT authentication bypass via jwk header injection
+
+**Resources:**
+
+- **Lab:** https://portswigger.net/web-security/jwt/lab-jwt-authentication-bypass-via-jwk-header-injection
+- **AulasHack Video Resolution:** https://odysee.com/@AulasHack:4/jwt-authentication-bypass-via-jwk-header:9?lid=1b7dc3665c5cf1c05af4d0e56fd30d94031af8ba
+
+**Explanation:** 
+
+​	According to the JWS specification, only the `alg` header parameter is mandatory. In practice, however, JWT headers (also  known as JOSE headers) often contain several other parameters. The  following ones are of particular interest to attackers.        
+
+- `jwk` (JSON Web Key) - Provides an embedded JSON object representing the key.                
+- `jku` (JSON Web Key Set URL) - Provides a URL from which servers can fetch a set of keys containing the correct key.                
+- `kid` (Key ID) - Provides an ID that  servers can use to identify the correct key in cases where there are  multiple keys to choose from. Depending on the format of the key, this  may have a matching `kid` parameter.                
+
+​	As you can see, these user-controllable parameters each tell the recipient server which key to use when verifying the signature. In  this section, you'll learn how to exploit these to inject modified JWTs  signed using your own arbitrary key rather than the server's secret.        
+
+#### Injecting self-signed JWTs via the jwk parameter
+
+​	The JSON Web Signature (JWS) specification describes an optional `jwk` header parameter, which servers can use to embed their public key directly within the token itself in JWK format.        
+
+> #### JWK
+>
+> A JWK (JSON Web Key) is a standardized format for representing keys as a JSON object.            
+
+​	You can see an example of this in the following JWT header:        
+
+```json
+{
+    "kid": "ed2Nf8sb-sD6ng0-scs5390g-fFD8sfxG",
+    "typ": "JWT",
+    "alg": "RS256",
+    "jwk": {
+        "kty": "RSA",
+        "e": "AQAB",
+        "kid": "ed2Nf8sb-sD6ng0-scs5390g-fFD8sfxG",
+        "n": "yy1wpYmffgXBxhAUJzHHocCuJolwDqql75ZWuCQ_cb33K2vh9m"
+    }
+}
+```
+
+> #### Public and private keys
+>
+> In case you're not familiar with the terms "public key"  and "private key", we've covered this as part of our materials on  algorithm confusion attacks. For more information, see [Symmetric vs asymmetric algorithms](https://portswigger.net/web-security/jwt/algorithm-confusion#symmetric-vs-asymmetric-algorithms).            
+
+​	Ideally, servers should only use a limited whitelist of  public keys to verify JWT signatures. However, misconfigured servers  sometimes use any key that's embedded in the `jwk` parameter.        
+
+​	You can exploit this behavior by signing a modified JWT  using your own RSA private key, then embedding the matching public key  in the `jwk` header.        
+
+​	Although you can manually add or modify the `jwk` parameter in Burp, the [JWT Editor extension](https://portswigger.net/bappstore/26aaa5ded2f74beea19e2ed8345a93dd) provides a useful feature to help you test for this vulnerability:        
+
+1. With the extension loaded, in Burp's main tab bar, go to the **JWT Editor Keys** tab.                
+2. [Generate a new RSA key.](https://portswigger.net/burp/documentation/desktop/testing-workflow/session-management/jwts#adding-a-jwt-signing-key)                
+3. Send a request containing a JWT to Burp Repeater.                
+4. In the message editor, switch to the extension-generated **JSON Web Token** tab and [modify](https://portswigger.net/burp/documentation/desktop/testing-workflow/session-management/jwts#editing-jwts) the token's payload however you like.                
+5. Click **Attack**, then select **Embedded JWK**. When prompted, select your newly generated RSA key.                
+6. Send the request to test how the server responds.                
+
+​	You can also perform this attack manually by adding the `jwk` header yourself. However, you may also need to update the JWT's `kid` header parameter to match the `kid` of the embedded key. The extension's built-in attack takes care of this step for you.        
+
+**Resolution:**
+
+1. Login at **wiener** account, collect and analyse the JWT Token at **jwt.io** or **jwt_tool**.
+
+```bash
+└─$ python3 jwt_tool.py eyJraWQiOiJlMzU0ODBkNi0wMzZlLTQ5ZmUtOTVmOC04ODBkOGFkYmQwN2IiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJwb3J0c3dpZ2dlciIsImV4cCI6MTcxNDkyNjU5OSwic3ViIjoid2llbmVyIn0.cjSS0lAsQjZBZGWlazZBDpYDBAA2fQwYQW9pFrrFK3-N-qYpTbwWIIwEBvCJP0Yt2q0r479LWiAv3AiIB1rXWxbLDVV2kAywTuDyfiay4dAqcTHaSXFEmQE3hHOXq536Rf5Eho0u38TcN4LIlbFeMaT6F0fSwEYIhIE-tMTv-QQ70gdgQoG87tPS9LwLb7_BhTLFXk_txjwmcRD0bMdaGBpzem3pDzz8-8oYH7OmBWRlNGSJK_n_aSE1VIkeu0yt-sbkR40iaf6Fn9GZCv8Aa4rxRUwM0m5mPiCqgYr548Eg_pjN8ZQr9AgEWj38lIZuyCBsgxYY6n9gF4o34g2yBw
+
+        \   \        \         \          \                    \ 
+   \__   |   |  \     |\__    __| \__    __|                    |
+         |   |   \    |      |          |       \         \     |
+         |        \   |      |          |    __  \     __  \    |
+  \      |      _     |      |          |   |     |   |     |   |
+   |     |     / \    |      |          |   |     |   |     |   |
+\        |    /   \   |      |          |\        |\        |   |
+ \______/ \__/     \__|   \__|      \__| \______/  \______/ \__|
+ Version 2.2.6                \______|             @ticarpi      
+
+Original JWT: 
+                                                                                                                                                                                             
+=====================
+Decoded Token Values:                                                                                                                                                                        
+=====================                                                                                                                                                                        
+
+Token header values:                                                                                                                                                                         
+[+] kid = "e35480d6-036e-49fe-95f8-880d8adbd07b"
+[+] alg = "RS256"
+
+Token payload values:                                                                                                                                                                        
+[+] iss = "portswigger"
+[+] exp = 1714926599    ==> TIMESTAMP = 2024-05-05 13:29:59 (UTC)
+[+] sub = "wiener"
+
+----------------------                                                                                                                                                                       
+JWT common timestamps:                                                                                                                                                                       
+iat = IssuedAt                                                                                                                                                                               
+exp = Expires                                                                                                                                                                                
+nbf = NotBefore                                                                                                                                                                              
+----------------------
+```
+
+2. Use **JWT Editor** to generate a **RSA** key.
+
+<img align="center" src="screenshots/jwt_vulns/jwk_header_injection/gen_key.png">
+
+3. Save the generated Key and copy the public key as **JWK**.
+
+<img align="center" src="screenshots/jwt_vulns/jwk_header_injection/save_key.png">
+
+<img align="center" src="screenshots/jwt_vulns/jwk_header_injection/copy_jwk.png">
+
+3. Use **JSON Web Tokens** to add the JWK copied in the Header. Then, copy the **kid** on jwk and paste in **kid** on the header. Last, tamper the "wiener" value to the "administrator" value.
+
+<img align="center" src="screenshots/jwt_vulns/jwk_header_injection/normal_jwt.png">
+
+<img align="center" src="screenshots/jwt_vulns/jwk_header_injection/add_jwk.png">
+
+<img align="center" src="screenshots/jwt_vulns/jwk_header_injection/tamper_admin.png">
+
+4. Sign the **JWT** using the same key created in **JWT Editor** and send the request.
+
+<img align="center" src="screenshots/jwt_vulns/jwk_header_injection/request.png">
