@@ -16,7 +16,7 @@
 - [JWT Debugger](https://token.dev/)
 - [jwt_tool - Github](https://github.com/ticarpi/jwt_tool)
 - [JSON Web Tokens - Burp Suite Extension](https://portswigger.net/bappstore/f923cbf91698420890354c1d8958fee6)
-- [JWT Editor](https://portswigger.net/bappstore/26aaa5ded2f74beea19e2ed8345a93dd)
+- [JWT Editor - Burp Suite Extension](https://portswigger.net/bappstore/26aaa5ded2f74beea19e2ed8345a93dd)
 
 ## Resume
 
