@@ -35,3 +35,5 @@ List the IAM groups that the specified IAM user belongs to: `aws iam list-groups
 List all manages policies that are attached to the specified IAM user : `aws iam list-attached-user-policies --user-name [user-name] --profile ec2` 
 
 Lists all managed policies that are attached to the specified IAM Group : `aws iam list-attached-group-policies --group-name [group-name] --profile ec2`
+
+## AZURE
