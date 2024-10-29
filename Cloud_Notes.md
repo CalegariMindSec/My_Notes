@@ -76,3 +76,29 @@ Enumerate Users: `Get-MgUser`
 Enumerate Applications: `Get-MgApplication`
 
 Enumerate Application Owner: `Get-MgApplicationOwner -ApplicationId "[ID]"`
+
+## GCP
+
+**Commands:** 
+
+Activate key file: `gcloud auth activate-service-account --key-file FILE.json`
+
+List auths: `gcloud auth  list`
+
+List instances: `gcloud compute instances list`
+
+List projects: `gcloud projects list`
+
+List config: `gcloud config list`
+
+List organizations: `gcloud organizations list`
+
+Set account: `gcloud config set account [ACCOUNT_ID]`
+
+Get IAM policy from project: `gcloud projects get-iam-policy [PROJECT_ID]`
+
+Describe roles: `gcloud iam roles describe [ROLE_ID]`
+
+Get IAM policy from instances: `gcloud compute instances get-iam-policy [INSTANCE_ID] --zone [ZONE_ID] --project [PROJECT_ID]`
+
+List storages from project: `gcloud storage ls --project [PROJECT_ID]`
