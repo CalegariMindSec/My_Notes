@@ -225,3 +225,9 @@ Press 'q' or Ctrl-C to abort, almost any other key for status
 237 usernames.txt
 ```
 
+Username Wordlist Generation - John Rule
+
+```bash
+ssh -D {PROXYCHAINS_PORT} USER@HOST -fN
+```
+
