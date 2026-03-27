@@ -14,16 +14,16 @@ Summary:
 
 Summary:
 
-- Get-WinEvent - cmdlet (CheatSheet)
+- [Get-WinEvent - cmdlet (CheatSheet)](#get-winevent---cmdlet-cheatsheet)
 
 ### Get-WinEvent - cmdlet (CheatSheet)
 
 Summary: 
 
-- Command - Retrieve Properties list
-- Command - Retrieve EventId event (Message)
-- Command - Retrieve EventId event (Full)
-- Command - Table-Like Output
+- [Command - Retrieve Properties list](#command---retrieve-properties-list)
+- [Command - Retrieve EventId event (Message)](#command---retrieve-eventid-event-message)
+- [Command - Retrieve EventId event (Full)](#command---retrieve-eventid-event-full)
+- [Command - Table-Like Output](#command---retrieve-matching-results)
 
 #### Command - Retrieve Properties list
 
