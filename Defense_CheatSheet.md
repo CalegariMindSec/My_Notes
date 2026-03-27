@@ -2,13 +2,13 @@
 
 Summary:
 
-- Detection Engineering
+- [Detection Engineering](#detection-engineering)
 
 # Detection Engineering
 
 Summary:
 
-- Threat Hunting
+- [Threat Hunting](#threat-hunting)
 
 ## Threat Hunting
 
